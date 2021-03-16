@@ -1,15 +1,7 @@
 from time import sleep
 import random
 
-#Variables and shit
-rounds = []
-bal_rounds = []
-choice = 20.00 #initial start choice, we like 20
-wins = 0
-multi = 1.2
-
-#Main container
-def main(wins, rounds, multi, bal_rounds):
+def welcome(choice):
     print("Welcome to dice bot")
     sim_count = int(input("How many rolls to simulate> "))
     bal_start = int(input("What is the starting balance> "))
@@ -19,25 +11,52 @@ def main(wins, rounds, multi, bal_rounds):
     print("Starting rolls...",end = "\r\n")
     sleep(1)
 
+    return sim_count, bal_start, bet
+
+#Main container
+def main():
+    #Variables and shit
+    choice = 20.00 #initial start choice, we like 20
+    sim_count, bal_start, bet = welcome(choice)
+    rounds = []
+    bal_rounds = []
+    rStatus = []
+    wins = 0
+    multi = 1.2
+
     #EVERY ROUND
     for _ in range(0, sim_count):
+        #Round check for balance fix
         if _ == 0:
             balance = bal_start
         else:
             balance = bal_rounds[-1]
+            
         current_roll = roll()
         print("Rolled ~ {}".format(current_roll))
         rounds.append(current_roll)
               
         if current_roll > choice:
             wins = wins + 1
-            new_balance = balance_calculator(balance, "win", bet, multi)
+            rType = "win"
+            new_balance = balance_calculator(balance, rType, bet, multi)
             bal_rounds.append(new_balance)
+            
         else:
-            new_balance = balance_calculator(balance, "loss", bet, multi)
+            rType = "loss"
+            new_balance = balance_calculator(balance, rType, bet, multi)
             bal_rounds.append(new_balance)
         #sleep(.5)
-    
+
+        #Give a helping hand (brain) to the bot
+        if rType == "win" or "loss":
+            rStatus.append(rType)
+        else:
+            print("Something whack, you nulled")
+
+        #Feed the bot the info
+        ai_intake(choice, current_roll, bet, rStatus)
+        
     game_size = len(rounds)
     win_rate = round(wins / game_size, 2) * 100
     print("Win Percent >> {} / {} >> {}%".format(wins, game_size, win_rate))
@@ -49,9 +68,24 @@ def roll():
     roll = round(roll, 2)
     return roll
 
-def ai(roll, bet):
     #Adapt to the roll
-    pass
+def ai_intake(choice, roll_generated, bet, rStatus):
+    #rStatus is the bot memory
+    rolled = roll_generated
+    choice = choice
+    bet = bet
+
+    #Send to bot brain
+    what_do = ai_react(choice, rolled, bet, rStatus)
+
+
+def ai_react(choice, rolled, bet, rStatus):
+    #Print current game that the bot knows
+    print("Choice> {} _ Bet> ${} _ Outcome> {}\n".format(choice, bet, rStatus[-1]))
+
+    #Figure out wtf to do next
+    
+        
 
 def multiplier():
     for _ in range(.9949, 48.75):
@@ -69,5 +103,5 @@ def balance_calculator(balance, rType, bet, multi):
 
     return balance
 
-main(wins, rounds, multi, bal_rounds)
+main()
     
