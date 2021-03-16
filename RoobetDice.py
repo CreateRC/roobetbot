@@ -62,13 +62,11 @@ def main():
     print("Win Percent >> {} / {} >> {}%".format(wins, game_size, win_rate))
     print("Ending balance >> ${}".format(bal_rounds[-1]))
     
-#Start rolling
 def roll():
     roll = random.uniform(0.00, 100.00)
     roll = round(roll, 2)
     return roll
 
-    #Adapt to the roll
 def ai_intake(choice, roll_generated, bet, rStatus):
     #rStatus is the bot memory
     rolled = roll_generated
@@ -83,7 +81,8 @@ def ai_react(choice, rolled, bet, rStatus):
     #Print current game that the bot knows
     print("Choice> {} _ Bet> ${} _ Outcome> {}\n".format(choice, bet, rStatus[-1]))
 
-    #Figure out wtf to do next
+    #Figure out what to do next after learning last choices
+    
     
         
 
