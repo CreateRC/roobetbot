@@ -74,15 +74,17 @@ def ai_intake(choice, roll_generated, bet, rStatus):
     bet = bet
 
     #Send to bot brain
-    what_do = ai_react(choice, rolled, bet, rStatus)
+    what, do = ai_react(choice, rolled, bet, rStatus)
 
+    #Output choice change
+    print("Changing bet to...\nChoice> {} | Bet> {}\n".format(what, do))
 
 def ai_react(choice, rolled, bet, rStatus):
     #Print current game that the bot knows
-    print("Choice> {} _ Bet> ${} _ Outcome> {}\n".format(choice, bet, rStatus[-1]))
-
-    #Figure out what to do next after learning last choices
+    print("Choice> {} _ Bet> ${} _ Outcome> {}".format(choice, bet, rStatus[-1]))
     
+    #Figure out what to do next after learning last choices
+    return "eat", "shit"
     
         
 
