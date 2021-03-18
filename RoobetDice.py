@@ -82,9 +82,12 @@ def ai_intake(choice, roll_generated, bet, rStatus):
 def ai_react(choice, rolled, bet, rStatus):
     #Print current game that the bot knows
     print("Choice> {} _ Bet> ${} _ Outcome> {}".format(choice, bet, rStatus[-1]))
-    
+
+
+    newC = "eat"
+    newB = "shit"
     #Figure out what to do next after learning last choices
-    return "eat", "shit"
+    return newC, newB
     
         
 
