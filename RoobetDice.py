@@ -22,7 +22,7 @@ def main():
     bal_rounds = []
     rStatus = []
     wins = 0
-    multi = 1.2
+    multi = 1.2188
 
     #EVERY ROUND
     for _ in range(0, sim_count):
@@ -82,7 +82,11 @@ def ai_intake(choice, roll_generated, bet, rStatus):
 def ai_react(choice, rolled, bet, rStatus):
     #Print current game that the bot knows
     print("Choice> {} _ Bet> ${} _ Outcome> {}".format(choice, bet, rStatus[-1]))
-
+    history = rStatus
+    if len(history) <= 3: #framework for history listing
+        print(history)
+    else:
+        print("3 rounds met")
 
     newC = "eat"
     newB = "shit"
